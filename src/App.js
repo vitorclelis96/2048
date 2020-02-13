@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import './components/Table/Table';
 import Table from './components/Table/Table';
 import Piece from './components/Piece/Piece';
+import { PIECE_TYPES, PIECE_CLASSES } from './utils/consts';
+import { updateRow } from './utils/controls/controls';
 
-
-// Must update with a object with PIECENAME and PIECECLASS
-const PIECE_TYPES = ["", "2", "4", "8", "16", "32", "64", "128", "256", "512", "1024", "2048"];
-
-const PIECE_CLASSES = [null, "two", "four", "eight", "sixteen", "thirtytwo", "sixtyfour", "twohundred", "fivehundred", "thousand", "twothousand"]
 
 function App() {
   const [game, setGame] = useState(false);
@@ -17,8 +14,8 @@ function App() {
     const tableElements = [[], [], [], []];
     for (let row = 0; row < 4; row++) {
       for (let col = 0; col < 4; col++) {
-        const keyIndex = (row * 4) + col;
-        tableElements[row].push(<Piece type={PIECE_TYPES[0]} key={keyIndex} />)
+        // const keyIndex = (row * 4) + col;
+        tableElements[row].push(<Piece type={PIECE_TYPES[0]}/>)
       }
     }
     return tableElements;
@@ -36,8 +33,40 @@ function App() {
     return true;
   }
 
+  
+
+  const collapseLeft = () => {
+    setGamePieces((oldState) => {
+      const newState = [...oldState];
+      updateRow(newState, "left");
+      return newState;
+    })
+  }
+
+  const collapseRight = () => {
+    setGamePieces((oldState) => {
+      const newState = [...oldState];
+      updateRow(newState, "right");
+      return newState;
+    })
+  }
+
+
   const keyboardHandler = (event) => {
     // handle events
+    console.log(event.key);
+    switch (event.key) {
+      case "ArrowLeft" :
+        collapseLeft();
+      case "ArrowRight" :
+        break;
+      case "ArrowUp" :
+        break;
+      case "ArrowDown" :
+        break;
+      default:
+        break;
+    }
 
     generatePiece();
   }

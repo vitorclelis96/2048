@@ -10,6 +10,46 @@
 }
 
 .two {
-    background-color: red;
-    
+    background-color: #FFE4B5;
+}
+
+.four {
+    background-color:  	#FF6347;
+}
+
+.eight {
+    background-color: #DDA0DD;
+}
+
+.sixteen {
+    background-color: #8A2BE2;
+}
+
+.thirtytwo {
+    background-color: #FF69B4;
+}
+
+.sixtyfour {
+    background-color: #FFA500;
+}
+
+.onehundred {
+    background-color: #A52A2A;
+}
+
+.twohundred {
+    background-color: #2F4F4F;
+}
+
+.fivehundred {
+    background-color:  	#00FF7F;
+}
+
+.thousand {
+    background-color: #000000;
+    color: white;
+}
+
+.twothousand {
+    background-color:  	#00BFFF;
 }
