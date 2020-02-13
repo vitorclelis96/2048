@@ -5,24 +5,32 @@ import Table from './components/Table/Table';
 import Piece from './components/Piece/Piece';
 
 
+// Must update with a object with PIECENAME and PIECECLASS
 const PIECE_TYPES = ["", "2", "4", "8", "16", "32", "64", "128", "256", "512", "1024", "2048"];
+
+const PIECE_CLASSES = [null, "two", "four", "eight", "sixteen", "thirtytwo", "sixtyfour", "twohundred", "fivehundred", "thousand", "twothousand"]
 
 function App() {
   const [game, setGame] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [gamePieces, setGamePieces] = useState(() => {
-    const tableElements = []
-    for (let i = 0; i < 16; i++) {
-        tableElements.push(<Piece type="" key={i} />)
+    const tableElements = [[], [], [], []];
+    for (let row = 0; row < 4; row++) {
+      for (let col = 0; col < 4; col++) {
+        const keyIndex = (row * 4) + col;
+        tableElements[row].push(<Piece type={PIECE_TYPES[0]} key={keyIndex} />)
+      }
     }
     return tableElements;
-  })
+  });
 
   const tableIsFull = () => {
-    // FUNCTION IS USELESS NOW, MUST REPAIR IN FUTURE
-    for (const el of gamePieces) {
-      if (el.props.type === "") {
-        return false;
+    // FUNCTION IS USELESS FOR NOW, MUST REPAIR IN FUTURE
+    for (let row of gamePieces) {
+      for (const el of row) {
+        if (el.props.type === "") {
+          return false;
+        }
       }
     }
     return true;
@@ -45,11 +53,12 @@ function App() {
       return;
     }
     while (true) {
-      const index = Math.floor(Math.random() * 16);
-      if (gamePieceIsEmpty(gamePieces[index])) {
+      const rowIndex = Math.floor(Math.random() * 4);
+      const colIndex = Math.floor(Math.random() * 4);
+      if (gamePieceIsEmpty(gamePieces[rowIndex][colIndex])) {
         setGamePieces((oldState) => {
           const newState = [...oldState];
-          newState[index] = <Piece type={PIECE_TYPES[1]} className="two"/>
+          newState[rowIndex][colIndex] = <Piece type={PIECE_TYPES[1]} className={PIECE_CLASSES[1]}/>
           return newState;
         });
         break;

@@ -3,24 +3,10 @@ import React from 'react';
 import './Table.css'
 
 const Table = (props) => {
-    const firstLine = [];
-    const secondLine = [];
-    const thirdLine = [];
-    const fourthLine = [];
-
-    for (let i = 0; i < 16; i++) {
-        if (i >= 0 && i <= 3) {
-            firstLine.push(props.pieces[i])
-        } else if (i > 3 && i <= 7) {
-            secondLine.push(props.pieces[i])
-        } else if (i > 7 && i <= 11) {
-            thirdLine.push(props.pieces[i])
-        } else {
-            fourthLine.push(props.pieces[i])
-        }
-    }
-
-
+    const firstLine = props.pieces[0];
+    const secondLine = props.pieces[1];
+    const thirdLine = props.pieces[2];
+    const fourthLine = props.pieces[3];
 
     return (
         <div className="table-main">
