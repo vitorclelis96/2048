@@ -34,36 +34,27 @@ export function updateRow(gamePieces, orientation) {
 }
 
 function updateLeft(row) {
-    for (let i = 0; i < row.length; i++) {
-      if (i === 0) {
-        continue;
-      }
-      let justJoined = false;
-      if (justJoined) {
-          break;
-      }
-      for (let u = i; u > 0; u--) {
-        if (justJoined) {
-            break;
-        }
-        if (row[u].props.type === PIECE_TYPES[0]){
-          continue;
-        }
+  for (let i = 0; i < row.length; i++) {
+    for (let u = i; u < row.length; u ++) {
+      if (row[i].props.type === PIECE_TYPES[0]) {
         if (row[u].props.type !== PIECE_TYPES[0]) {
-          if (row[u-1].props.type === row[u].props.type) {
-            const newType = PIECE_TYPES.indexOf(row[u].props.type) + 1;
-            row[u-1] = <Piece type={PIECE_TYPES[newType]} className={PIECE_CLASSES[newType]} />
-            row[u] = <Piece type={PIECE_TYPES[0]} />
-            justJoined = true;
-            continue;
-          }
-          if (row[u-1].props.type === PIECE_TYPES[0]) {
-            row[u-1] = row[u];
-            row[u] = <Piece type={PIECE_TYPES[0]} />
-          }
+          const pieceIndex = PIECE_TYPES.indexOf(row[u].props.type);
+          row[i] = <Piece type={PIECE_TYPES[pieceIndex]} className={PIECE_CLASSES[pieceIndex]} />
+          row[u] = <Piece type={PIECE_TYPES[0]} />
         }
+      } 
+    }
+  }
+  for (let i = 0; i < row.length; i++) {
+    if (row[i].props.type !== PIECE_TYPES[0]) {
+      if (row[i].props.type === row[i+1].props.type) {
+        const newPieceIndex = PIECE_TYPES.indexOf(row[i].props.type) + 1
+        row[i] = <Piece type={PIECE_TYPES[newPieceIndex]} className={PIECE_CLASSES[newPieceIndex]} />
+        row.splice((i+1), 1);
+        row.push(<Piece type={PIECE_TYPES[0]} />)
       }
     }
+  }
 }
 
 function updateRight(row) {
