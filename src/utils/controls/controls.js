@@ -47,6 +47,9 @@ function updateLeft(row) {
   }
   for (let i = 0; i < row.length; i++) {
     if (row[i].props.type !== PIECE_TYPES[0]) {
+      if (i === (row.length - 1) ) {
+        continue;
+      }
       if (row[i].props.type === row[i+1].props.type) {
         const newPieceIndex = PIECE_TYPES.indexOf(row[i].props.type) + 1
         row[i] = <Piece type={PIECE_TYPES[newPieceIndex]} className={PIECE_CLASSES[newPieceIndex]} />
@@ -67,6 +70,9 @@ function updateRight(row) {
           continue;
         }
         if (row[u].props.type !== PIECE_TYPES[0]) {
+          if (u === (row.length - 1) ) {
+            continue;
+          }
           if (row[u+1].props.type === row[u].props.type) {
             const newType = PIECE_TYPES.indexOf(row[u].props.type) + 1;
             row[u+1] = <Piece type={PIECE_TYPES[newType]} className={PIECE_CLASSES[newType]} />
